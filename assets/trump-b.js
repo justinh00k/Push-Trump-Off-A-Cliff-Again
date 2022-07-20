@@ -15,18 +15,51 @@ function onYouTubePlayerAPIReady() {
 
 var is_tv_ready = false;
 
-function onPlayerReady() {}
+function onPlayerReady() {
+    
+    
+    
+    tv.loadVideoById(vid);
+    tv.mute();
+
+    is_tv_ready = true;
+
+     if (scene === 5) {
+        tv.playVideo();
+        $("#smoker2").show();
+    } else
+        tv.pauseVideo();
+        
+        
+
+}
 
 function onPlayerStateChange(e) {
     if (e.data === 1) {
         $('#tv').addClass('active');
-        //    console.log("tv on");
-
     }
 
 }
 
-// FASTCLICK.JS
+function vidRescale() {
+
+    var w = $(window).width() + 200,
+        h = $(window).height() + 200;
+
+    if (w / h > 16 / 9) {
+        tv.setSize(w, w / 16 * 9);
+        $('.tv .screen').css({ 'left': '0px' });
+    } else {
+        tv.setSize(h / 9 * 16, h);
+        $('.tv .screen').css({ 'left': -($('.tv .screen').outerWidth() - w) / 2 });
+    }
+}
+
+$(window).on('load resize', function() {
+    vidRescale();
+});
+
+// FASTCLICK
 
 ! function(t) {
     function e(o) { if (n[o]) return n[o].exports; var i = n[o] = { exports: {}, id: o, loaded: !1 }; return t[o].call(i.exports, i, i.exports, e), i.loaded = !0, i.exports }
@@ -213,8 +246,6 @@ var smokemachine = function(t, a) {
     return { start: h, stop: o, step: s, addsmoke: e }
 };
 
-
-
 //TRUMP.JS
 Origami.fastclick(document.body);
 
@@ -278,14 +309,11 @@ var first_mobile = true;
 var smoke_multiplier = 1;
 var button_height = "-4px";
 
-
-
-
-step1_audio = new Audio('../sounds/step_1.mp3');
-step2_audio = new Audio('../sounds/step_2.mp3');
+step1_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/step_1.mp3');
+step2_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/step_2.mp3');
 step1_audio.volume = step2_audio.volume = step1_volume = .6;
 
-bg_audio_1 = new Audio('../sounds/wind.mp3');
+bg_audio_1 = new Audio('https://bucket.pushtrumpoffacliffagain.com/wind.mp3');
 bg_audio_1.volume = bg_volume_1 = .15;
 
 bg_audio_1.addEventListener('timeupdate', function() {
@@ -296,14 +324,11 @@ bg_audio_1.addEventListener('timeupdate', function() {
     }
 }, false);
 
-
-
 function load_audio() {
 
-
-    bg_audio_2 = new Audio('../sounds/lava.mp3');
-    bg_audio_3 = new Audio('../sounds/city.mp3');
-    bg_audio_4 = new Audio('../sounds/jungle.mp3');
+    bg_audio_2 = new Audio('https://bucket.pushtrumpoffacliffagain.com/lava.mp3');
+    bg_audio_3 = new Audio('https://bucket.pushtrumpoffacliffagain.com/city.mp3');
+    bg_audio_4 = new Audio('https://bucket.pushtrumpoffacliffagain.com/jungle.mp3');
     preloaded = true;
     bg_audio_2.volume = bg_volume_2 = .4;
     bg_audio_3.volume = bg_volume_3 = .3;
@@ -334,11 +359,7 @@ function load_audio() {
     }, false);
 }
 
-
-
-
-
-effect1_audio = new Audio('../sounds/se4_echo.mp3');
+effect1_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/se4_echo.mp3');
 effect1_audio.volume = effect1_volume = .8;
 
 document.getElementById("leftborder").addEventListener("touchstart", function(event) {
@@ -361,19 +382,15 @@ document.getElementById("volume").addEventListener("touchstart", function(event)
     event.preventDefault()
 });
 
-
 window.addEventListener('keydown', function(e) {
     if ((e.keyCode == 32 || e.keyCode == 37 || e.keyCode == 39) && e.target == document.body) {
         e.preventDefault();
     }
 });
 
-
-
 window.addEventListener("mouseup", function(event) {
     mouse_up();
 });
-
 
 function touch_end(action) {
 
@@ -386,7 +403,6 @@ function touch_end(action) {
             walking = false;
         else
             step_left();
-
 
     }
     if (action === 2) {
@@ -406,12 +422,18 @@ function touch_end(action) {
 
 }
 
+$(window).focus(function() {
+    $("#error").hide();
+    if (volume_on)
+        bg(true);
+});
 
-
-
+$(window).blur(function() {
+    $("#error").show();
+    bg(false);
+});
 
 function bg(play) {
-
 
     if (play && volume_on) {
         if (scene === 1 || scene === 5)
@@ -451,18 +473,15 @@ function select(x) {
 
     jumpcount = 0;
 
-
     $("#scenes div").css("border-color", "#283681");
     $("#scene" + x).css("border-color", "#FFFFFF");
-    $("#torso").css('background-image', "url('../images/trump_torso_normal.png' )");
+    $("#torso").css('background-image', "url('https://bucket.pushtrumpoffacliffagain.com/trump_torso_normal.png' )");
     $("#donald").css({ "transition": "left 0s, top 0s" });
     $('#donald').css("transition-duration", "0");
     $('#torso').css("left", "0");
     $("#torso").css('transform', "rotate(0deg)");
     $("#torso").css('background-size', "100%");
     $("#torso").css('animation', "none");
-
-
 
     $("#overlay").hide();
     $("#smoker").hide();
@@ -482,7 +501,7 @@ function select(x) {
 
     if (scene === 1) {
 
-        $("#box").css("background-image", "url('../images/bg1.jpg')");
+        $("#box").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/bg1.jpg')");
 
         if (!falling) {
             $("#donald").css({
@@ -502,7 +521,6 @@ function select(x) {
             }
         }
 
-
     } else if (scene === 2) {
         party.start();
 
@@ -511,14 +529,13 @@ function select(x) {
 
         $("#smoker").show();
 
-        $("#box").css("background-image", "url('../images/bg2.jpg')");
-        $("#overlay").css("background-image", "url('../images/overlay_2.png')");
+        $("#box").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/bg2.jpg')");
+        $("#overlay").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/overlay_2.png')");
         $("#overlay").show();
         if (!falling) {
             $("#donald").css({
                 "top": top_2 + "px"
             });
-
 
             if (position > cutoff_2) {
                 position = last_position = cutoff_2 + 40;
@@ -530,23 +547,18 @@ function select(x) {
             }
         }
 
-
-
-
-
         drawSmoke();
 
     } else if (scene === 3) {
 
-        $("#box").css("background-image", "url('../images/bg3.jpg')");
-        $("#overlay").css("background-image", "url('../images/overlay_3.png')");
+        $("#box").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/bg3.jpg')");
+        $("#overlay").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/overlay_3.png')");
         $("#overlay").show();
         $("#letter_wrapper").show();
         if (!falling) {
             $("#donald").css({
                 "top": top_3 + "px"
             });
-
 
             if (position > cutoff_3) {
                 position = last_position = cutoff_3 + 40;
@@ -558,22 +570,15 @@ function select(x) {
             }
         }
 
-
-
-
     } else if (scene === 4) {
 
-        $("#box").css("background-image", "url('../images/bg4.jpg')");
-
-
-
+        $("#box").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/bg4.jpg')");
 
         $("#dino").show();
         if (!falling) {
             $("#donald").css({
                 "top": top_4 + "px"
             });
-
 
             if (position > cutoff_4) {
                 position = last_position = cutoff_4;
@@ -582,39 +587,31 @@ function select(x) {
             }
         }
 
-
-
     } else if (scene === 5) {
-
-
+        
+        
         if (!is_tv_ready) {
-            tv.loadVideoById(vid);
-            tv.mute();
+         tv.loadVideoById(vid);
+    tv.mute();
 
-            is_tv_ready = true;
+    is_tv_ready = true;
 
-
-            tv.playVideo();
-            $("#smoker2").show();
-
-            balloons(false);
-
+ 
+        tv.playVideo();
+        $("#smoker2").show();
+        
+          balloons(false);
+    
         }
-
-
 
         Matter.Runner.run(runner, engine);
 
-
-        $("#box").css("background-image", "url(../images/bg5.jpg)");
-
-
+        $("#box").css("background-image", "url(assets/bg5.jpg)");
 
         $("#cover").show();
 
         $('#tv').css("visibility", "visible");
         $('#b_wrapper').css("visibility", "visible");
-
 
         $("#donald").css("left", "+=40px");
         last_position += 40;
@@ -622,7 +619,7 @@ function select(x) {
         landing_position += 40;
         initial_position += 40;
 
-        $("#torso").css('background-image', "url('../images/trump_torso_b.png' )");
+        $("#torso").css('background-image', "url('assets/trump_torso_b.png' )");
         $("#torso").css('background-size', "50%");
         $("#torso").css('animation', "swing 2s infinite ease-in-out");
         $('#leg1,#leg2').hide();
@@ -632,10 +629,7 @@ function select(x) {
                 "top": top_5 + "px"
             });
 
-
-
         }
-
 
         party2.addsmoke(150, 150, 150);
         party2.start();
@@ -643,7 +637,6 @@ function select(x) {
         drawClouds();
 
         $("#smoker2").show();
-
 
         var popballoons = true;
 
@@ -657,11 +650,6 @@ function select(x) {
 
         if (is_tv_ready)
             tv.playVideo();
-
-
-
-
-
 
     }
 
@@ -681,20 +669,11 @@ function select(x) {
 
     }
 
-
     bg(true);
-
-
 
 }
 
-
-
-
-
 function mouse_up() {
-
-
 
     if (!map[37])
         $("#leftborder").css('bottom', '0');
@@ -715,7 +694,6 @@ function mouse_down(left) {
     if (left) {
         step_left();
         mouse_sequence.push("0");
-
 
     } else {
         step_right();
@@ -749,15 +727,14 @@ onkeydown = onkeyup = function(e) {
     e = e || event;
     map[e.keyCode] = e.type == 'keydown';
 
-
-    if (sound_off_to_start) {
-
-        volume_on = 1;
-        bg(true);
-        $("#volume").attr('src', volumeon.src);
-        sound_off_to_start = false;
-    }
-
+if (sound_off_to_start)
+{
+  
+    volume_on = 1;
+      bg(true);
+     $("#volume").attr('src', volumeon.src);
+    sound_off_to_start = false;
+}
 
     if ((!map[16] && !map[66]) && e.type === "keyup")
         run(false);
@@ -765,23 +742,16 @@ onkeydown = onkeyup = function(e) {
     if ((map[16] || map[66]) && e.type === "keydown")
         run(true);
 
-
-
-
     if (map[32] || map[65]) {
         jump();
     }
-
-
 
     if (map[37]) {
 
         step_left();
 
-
     }
     if (map[39]) {
-
 
         step_right();
 
@@ -800,7 +770,6 @@ onkeydown = onkeyup = function(e) {
 
     if (e.type === "keydown" && e.keyCode !== 16 && e.keyCode !== 32 && !(no_more_dancing && konami_code)) {
         sequence.push(e.keyCode);
-
 
         if (sequence.length > 10)
             sequence = sequence.slice(-10);
@@ -829,7 +798,6 @@ onkeydown = onkeyup = function(e) {
         }
     }
 
-
 }
 
 function mouse_run() {
@@ -843,7 +811,6 @@ function mouse_run() {
         mouse_go = true;
     }
 }
-
 
 function run(go) {
 
@@ -860,13 +827,11 @@ function run(go) {
 
     }
 
-
 }
 
 function letter() {
 
     fallen = true;
-
 
     $("#letter_wrapper").css({
 
@@ -875,13 +840,11 @@ function letter() {
         "left": position + 60 + "px",
         "transform": "rotate(0deg)"
 
-
     });
 
     setTimeout(function() {
 
         $("#rubble").show();
-
 
         if (volume_on) {
             setTimeout(function() {
@@ -889,21 +852,11 @@ function letter() {
             }, 100);
         }
 
-
-
     }, 280);
-    ga('send', {
-        hitType: 'event',
-        eventCategory: 'Action',
-        eventAction: 'Letter Crash'
-    });
-
-
+    gtag('event', 'Letter Crash');
 }
 
-
 function jump() {
-
 
     if (jumping || falling || startup || scene === 5)
         return;
@@ -917,7 +870,6 @@ function jump() {
             letter();
         }
     }
-
 
     $("#b").css('bottom', '-2px');
     setTimeout(function() {
@@ -939,7 +891,6 @@ function jump() {
         "transition-duration": ".25s",
         "top": "-=" + jump_height + "px"
 
-
     });
 
     $("#leg1").css({
@@ -949,14 +900,12 @@ function jump() {
 
     });
 
-
     $("#leg2").css({
 
         "transition-duration": ".25s",
         "transform": "rotate(" + (-20 * direction) + "deg)"
 
     });
-
 
     setTimeout(function() {
 
@@ -969,7 +918,6 @@ function jump() {
             "top": "+=" + jump_height + "px"
 
         });
-
 
         $("#leg1").css({
 
@@ -984,8 +932,6 @@ function jump() {
             transform: "rotate(" + 0 + "deg)"
 
         });
-
-
 
         setTimeout(function() {
 
@@ -1010,12 +956,9 @@ function jump() {
 
     }, 250);
 
-
-
 }
 
 function tablet_mode(keyboard) {
-
 
     if (keyboard) {
 
@@ -1037,20 +980,14 @@ function tablet_mode(keyboard) {
         $('#keyboard_icon').show();
     }
 
-
-
 }
 
 function step_left() {
-
-
 
     $("#leftborder").css('bottom', button_height);
 
     if (startup)
         return;
-
-
 
     if (!falling) {
         walking = true;
@@ -1070,19 +1007,14 @@ function step_left() {
         }
     }
 
-
-
 }
 
 function step_right() {
 
     $("#rightborder").css('bottom', button_height);
 
-
     if (startup)
         return;
-
-
 
     walking = true;
     right_walking = true;
@@ -1098,27 +1030,21 @@ function step_right() {
 
         // hatcheck(false);
 
-
-
         take_step();
     }
 
 }
 
-
-
-
 function volume_toggle() {
 
-    if (sound_off_to_start)
-        sound_off_to_start = false;
+if (sound_off_to_start)
+ sound_off_to_start = false;
 
     if (mobile && first_mobile && audio_loaded) {
 
         first_mobile = false;
 
-
-        metal_sound.volume = hatdance_audio.volume = konami_pipe.volume = konami_jump.volume = konami_start.volume = step2_audio.volume = step1_audio.volume = bg_audio_2.volume = bg_audio_3.volume = bg_audio_4.volume = effect1_audio.volume = effect2_audio.volume = effect3_audio.volume = effect4_audio.volume = effect5_audio.volume = grass_step1_audio.volume = grass_step2_audio.volume = roar.volume = balloon4_audio = balloon3_audio = balloon2_audio = balloon1_audio = 0;
+        metal_sound.volume = hatdance_audio.volume = konami_pipe.volume = konami_jump.volume = konami_start.volume = step2_audio.volume = step1_audio.volume = bg_audio_2.volume = bg_audio_3.volume = bg_audio_4.volume = effect1_audio.volume = effect2_audio.volume = effect3_audio.volume = effect4_audio.volume = effect5_audio.volume = grass_step1_audio.volume = grass_step2_audio.volume = roar.volume = balloon4_audio.volume = balloon3_audio.volume = balloon2_audio.volume = balloon1_audio.volume = 0;
 
         step1_audio.play();
         step2_audio.play();
@@ -1140,8 +1066,6 @@ function volume_toggle() {
         effect1_audio.play();
         metal_sound.play();
 
-
-
         step1_audio.pause();
         step2_audio.pause();
         bg_audio_2.pause();
@@ -1161,7 +1085,6 @@ function volume_toggle() {
         effect2_audio.pause();
         effect1_audio.pause();
         metal_sound.pause();
-
 
         chief.play();
         chief.pause();
@@ -1195,9 +1118,7 @@ function volume_toggle() {
         chief.volume = chief_volume;
     }
 
-
     if (volume_on) {
-
 
         hatdance_audio.volume = 0;
 
@@ -1229,15 +1150,10 @@ function volume_toggle() {
 
 }
 
-
-
 function take_step() {
 
     if (left && position <= initial_position)
         return;
-
-
-
 
     if (falling && !marching)
         return;
@@ -1251,8 +1167,6 @@ function take_step() {
 
         if ((!marching || (scene === 4 && position > cutoff_4 + cutoff_4_bonus)) && ((scene === 4 && position > cutoff_4) || (position > cutoff_1 && scene === 1) || ((position > cutoff_5 && scene === 5) && !left) || (position > cutoff_2 && scene === 2) || (position > cutoff_3 && scene === 3) || (left && position <= initial_position) || (startup && position >= initial_position && !walking) || (!startup && !walking && (position >= last_position + step || position <= last_position - step)))) {
 
-
-
             stepping = false;
             last_position = position;
             clearInterval(id);
@@ -1261,18 +1175,12 @@ function take_step() {
                 fall();
             }
 
-
         } else {
-
-
-
 
             if (left)
                 position -= speed;
             else
                 position += speed;
-
-
 
             $("#donald").css({
 
@@ -1286,10 +1194,8 @@ function take_step() {
 
                     "transition": "left 0s, top .5s cubic-bezier(1, 0, 0, 1)",
 
-
                 });
             }
-
 
             ce = Math.sin(((position - landing_position) / 100) * Math.PI);
 
@@ -1303,17 +1209,13 @@ function take_step() {
 
                 $("#leg2").css({
 
-
                     "transition-duration": "0s",
                     transform: "rotate(" + (-20 * ce) + "deg)"
 
                 });
             }
 
-
             if (scene !== 5) {
-
-
 
                 if (!jumping) {
                     if (ce > .95 && step_sound && volume_on) {
@@ -1340,17 +1242,12 @@ function take_step() {
                     }
                 }
 
-
-
-
-
             } // not scene 5
             else if (position > ((8 - active_balloons.length + 2) * (cutoff_5 / 9)))
                 bpop(active_balloons.length - 1);
 
         }
     }
-
 
     var id = setInterval(frame, 7);
 
@@ -1368,17 +1265,11 @@ function fall() {
 
     }
 
-
-
     setTimeout(function() {
-
 
         update_counter(1);
 
     }, 500);
-
-
-
 
     falling = true;
 
@@ -1393,18 +1284,14 @@ function fall() {
 
         setTimeout(function() {
 
-
-
             if (!clown) {
 
                 if (scene === 5)
-                    $("#torso").css('background-image', "url('../images/trump_torso_bugly.png' )");
+                    $("#torso").css('background-image', "url('assets/trump_torso_bugly.png' )");
                 else
-                    $("#torso").css('background-image', "url('../images/trump_torso_angry_" + angry_num + ".png' )");
+                    $("#torso").css('background-image', "url('https://bucket.pushtrumpoffacliffagain.com/trump_torso_angry_" + angry_num + ".png' )");
 
             }
-
-
 
             clown = false;
 
@@ -1434,9 +1321,6 @@ function fall() {
     } else if (konami_code)
         konami_pipe.play();
 
-
-
-
     if (scene === 2) {
         setTimeout(function() {
 
@@ -1456,12 +1340,7 @@ function fall() {
 
                 $("#wordbubble").show();
 
-                ga('send', {
-                    hitType: 'event',
-                    eventCategory: 'Action',
-                    eventAction: 'Lights Out'
-                });
-
+                gtag('event', 'Lights Out');
 
             }, 1000);
 
@@ -1492,10 +1371,6 @@ function fall() {
 
         }
 
-
-
-
-
         $("#donald").css({
             "transitionDuration": ".2s",
             "left": "390px",
@@ -1504,7 +1379,6 @@ function fall() {
 
         $("#leg1").css({
 
-
             "transition-duration": ".2s",
             transform: "rotate(-5deg)"
 
@@ -1512,20 +1386,15 @@ function fall() {
 
         $("#leg2").css({
 
-
             "transition-duration": ".2s",
             transform: "rotate(-5deg)"
 
         });
 
-
     } else if (scene === 4) {
-
-
 
         setTimeout(function() {
             $("#dino").css({
-
 
                 "transition-duration": ".6s",
 
@@ -1537,13 +1406,8 @@ function fall() {
                 roar.play();
         }, 0);
 
-
-
-
-
         setTimeout(function() {
             $("#jaw").css({
-
 
                 "transition-duration": ".2s",
                 "transform": "rotate(25deg)"
@@ -1551,14 +1415,10 @@ function fall() {
             });
             marching = false;
 
-
         }, 500);
-
-
 
         setTimeout(function() {
             $("#dino_and_donald").css({
-
 
                 "transition-duration": ".5s",
 
@@ -1566,31 +1426,21 @@ function fall() {
 
             });
 
-
-
         }, 900);
-
 
         // reset
 
-
-
-
         setTimeout(function() {
 
-
             $("#dino_and_donald").css({
-
 
                 "transition-duration": "0s",
 
                 "transform": "rotate(0deg)"
 
-
             });
 
             $("#dino").css({
-
 
                 "transition-duration": "0s",
 
@@ -1600,34 +1450,22 @@ function fall() {
 
             $("#jaw").css({
 
-
                 "transition-duration": "0",
 
                 "transform": "rotate(0deg)"
 
             });
 
-
         }, reset_time);
 
     } else if (scene === 5) {
-
 
         $("#donald").css({
             "transitionDuration": "1s",
             "top": "+=200px"
         });
 
-
-
-
-
-
     }
-
-
-
-
 
     if (scene === 1 || scene === 2 || scene === 3) {
 
@@ -1641,18 +1479,14 @@ function fall() {
             });
             r = Math.random() * 90;
 
-
         } else
             r = 5 - Math.random() * 10;
 
-
         $("#donald").css({
-
 
             "transform": "rotate(" + r + "deg)"
 
         });
-
 
         setTimeout(function() {
 
@@ -1663,13 +1497,9 @@ function fall() {
 
             });
 
-
-
         }, 200);
 
     }
-
-
 
     setTimeout(function() {
 
@@ -1703,37 +1533,27 @@ function fall() {
 
         });
 
-
         if (dancing) {
             hatdance_audio.pause();
             hatdance_audio.currentTime = 0;
         }
-
+        
         if (is_tv_ready)
-            balloons(true);
+        balloons(true);
 
         if (scene === 5) {
 
-
-            $("#torso").css('background-image', "url('../images/trump_torso_b.png' )");
+            $("#torso").css('background-image', "url('assets/trump_torso_b.png' )");
             $("#torso").css('animation', "swing 2s infinite ease-in-out");
 
-
-
         } else
-            $("#torso").css('background-image', "url('../images/trump_torso_normal.png' )");
-
-
+            $("#torso").css('background-image', "url('https://bucket.pushtrumpoffacliffagain.com/trump_torso_normal.png' )");
 
         jumping = false;
         landing_position = initial_position;
         konami_code = false;
 
-
-
-
         position = last_position = -126;
-
 
         falling = false;
         startup = true;
@@ -1745,19 +1565,9 @@ function fall() {
     if (scene === 3 && lights % 5 === 0) {
         reset_time -= light_bonus;
     }
-
-    ga('send', {
-        hitType: 'event',
-        eventCategory: 'Action',
-        eventAction: 'Fall Off Cliff',
-        eventLabel: scene,
-        eventValue: fall_count
-    });
-
-
+    gtag('event', 'Fall Off Cliff', {scene});
 
 }
-
 
 function konamiCode() {
 
@@ -1766,19 +1576,14 @@ function konamiCode() {
 
     console.log("Konami Code!!");
 
-    $("#torso").css("background-image", "url('../images/trump_torso_8bit.png')");
+    $("#torso").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/trump_torso_8bit.png')");
 
     konami_code = true;
 
     if (volume_on)
         konami_start.play();
 
-    ga('send', {
-        hitType: 'event',
-        eventCategory: 'Action',
-        eventAction: 'Konami Code'
-    });
-
+        gtag('event', 'Konami Code');
 }
 
 function hatDance() {
@@ -1788,7 +1593,7 @@ function hatDance() {
 
     console.log("Mexican Hat Dance!!");
 
-    $("#torso").css("background-image", "url('../images/trump_torso_sombrero.png')");
+    $("#torso").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/trump_torso_sombrero.png')");
 
     dance++; // tracking so we dont take hat off during second dance due to long timeout
     no_more_dancing = true;
@@ -1798,12 +1603,7 @@ function hatDance() {
         hatdance_audio.volume = 0;
     hatdance_audio.play();
 
-    ga('send', {
-        hitType: 'event',
-        eventCategory: 'Action',
-        eventAction: 'Hat Dance!'
-    });
-
+    gtag('event', 'Hat Dance!');
 
     setTimeout(function() {
         dance--;
@@ -1814,12 +1614,11 @@ function hatDance() {
         dancing = false;
 
         if (konami_code)
-            $("#torso").css("background-image", "url('../images/trump_torso_8bit.png')");
+            $("#torso").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/trump_torso_8bit.png')");
         else if (!falling)
-            $("#torso").css("background-image", "url('../images/trump_torso_normal.png')");
+            $("#torso").css("background-image", "url('https://bucket.pushtrumpoffacliffagain.com/trump_torso_normal.png')");
 
     }, 7400);
-
 
 }
 
@@ -1829,17 +1628,12 @@ canvas.width = 800;
 canvas.height = 450;
 var party = smokemachine(ctx, [220, 220, 220]);
 
-
 var canvas2 = document.getElementById('smoker2');
 canvas2.width = 800;
 canvas2.height = 450;
 var party2 = smokemachine(canvas2.getContext('2d'), [255, 255, 255]);
 
-
-
 function drawClouds() {
-
-
 
     var x = -200 + Math.random() * 1000;
     var y = -100 + Math.random() * 550;
@@ -1847,20 +1641,14 @@ function drawClouds() {
 
     party2.addsmoke(x, y, t);
 
-
     setTimeout(function() {
         if (scene === 5)
             drawClouds();
     }, 500 * smoke_multiplier);
 
-
-
-
-
 }
 
 function drawSmoke() {
-
 
     var x = 300 + Math.random() * 600;
     var y = 200 + Math.random() * 600;
@@ -1868,12 +1656,10 @@ function drawSmoke() {
 
     party.addsmoke(x, y, t);
 
-
     setTimeout(function() {
         if (scene === 2)
             drawSmoke();
     }, 500 * smoke_multiplier);
-
 
 }
 
@@ -1886,7 +1672,6 @@ function update_counter(num) {
     fall_count += num;
 
     user_drop = true;
-
 
 };
 
@@ -1903,8 +1688,6 @@ function update_it() {
     last_9 = parseInt(last_9);
 
     if ((last_9 > (999995) || last_9 < 1000) && !partying && audio_loaded) {
-
-
 
         if (!volume_on)
             chief.volume = 0;
@@ -1927,21 +1710,11 @@ function update_it() {
 
         still_partying = partying = true;
 
-
-
         confetti.start();
 
-        ga('send', {
-            hitType: 'event',
-            eventCategory: 'Action',
-            eventAction: 'Confetti'
-        });
-
-
+        gtag('event', 'Confetti');
 
     }
-
-
 
     if (user_drop || partying) {
 
@@ -1986,14 +1759,11 @@ function balloons(first_time) {
 
             g1, g2, g3, g4, g5, g6, g7, g8
 
-
-
         ]);
 
         Matter.World.add(world, [
 
             g1, g2, g3, g4, g5, g6, g7, g8
-
 
         ]);
 
@@ -2046,8 +1816,7 @@ function balloons(first_time) {
 
     world.gravity.y = -1;
 
-
-    var b_density = .5,
+     var b_density = .5,
         b_friction = .05,
         b_frictionAir = .1,
         b_restitution = .05,
@@ -2071,7 +1840,6 @@ function balloons(first_time) {
     // console.log(b_xx, b_yy);
     // console.log(b_xx + 2 * spacer, b_yy + 2 * spacer);
 
-
     var group = Body.nextGroup(true);
 
     var b1 = Bodies.circle(b_xx, b_yy, b_radius, {
@@ -2083,7 +1851,7 @@ function balloons(first_time) {
 
         render: {
             sprite: {
-                texture: '../images/blue.png',
+                texture: 'assets/blue.png',
                 xScale: xscale,
                 yScale: yscale
             }
@@ -2097,22 +1865,14 @@ function balloons(first_time) {
         restitution: b_restitution,
         collisionFilter: { category: topLevel },
 
-
         render: {
             sprite: {
-                texture: '../images/white.png',
+                texture: 'assets/white.png',
                 xScale: xscale,
                 yScale: yscale
             }
         }
     });
-
-
-
-
-
-
-
 
     var b3 = Bodies.circle(b_xx + 2 * spacer, b_yy, b_radius, {
         density: b_density,
@@ -2123,16 +1883,13 @@ function balloons(first_time) {
 
         render: {
             sprite: {
-                texture: '../images/red.png',
+                texture: 'assets/red.png',
                 xScale: xscale,
                 yScale: yscale
             }
         }
     });
     group = Body.nextGroup(true);
-
-
-
 
     var b4 = Bodies.circle(b_xx, b_yy + spacer, b_radius, {
         density: b_density,
@@ -2143,7 +1900,7 @@ function balloons(first_time) {
 
         render: {
             sprite: {
-                texture: '../images/yellow.png',
+                texture: 'assets/yellow.png',
                 xScale: xscale,
                 yScale: yscale
             }
@@ -2161,13 +1918,12 @@ function balloons(first_time) {
 
         render: {
             sprite: {
-                texture: '../images/green.png',
+                texture: 'assets/green.png',
                 xScale: xscale,
                 yScale: yscale
             }
         }
     });
-
 
     var b6 = Bodies.circle(b_xx + spacer * 2, b_yy + spacer, b_radius, {
         density: b_density,
@@ -2178,7 +1934,7 @@ function balloons(first_time) {
 
         render: {
             sprite: {
-                texture: '../images/orange.png',
+                texture: 'assets/orange.png',
                 xScale: xscale,
                 yScale: yscale
             }
@@ -2194,7 +1950,7 @@ function balloons(first_time) {
 
         render: {
             sprite: {
-                texture: '../images/pink.png',
+                texture: 'assets/pink.png',
                 xScale: xscale,
                 yScale: yscale
             }
@@ -2202,8 +1958,6 @@ function balloons(first_time) {
     });
 
     group = Body.nextGroup(true);
-
-
 
     var b8 = Bodies.circle(b_xx + 1.5 * spacer, b_yy + 2 * spacer, b_radius, {
         density: b_density,
@@ -2214,16 +1968,12 @@ function balloons(first_time) {
 
         render: {
             sprite: {
-                texture: '../images/purple.png',
+                texture: 'assets/purple.png',
                 xScale: xscale,
                 yScale: yscale
             }
         }
     });
-
-
-
-
 
     var c1 = Constraint.create({
         pointA: { x: c_x, y: c_y },
@@ -2232,31 +1982,26 @@ function balloons(first_time) {
         length: c_l,
         stiffness: b_s,
 
-
         render: {
             strokeStyle: "rgba(255,255,255,.15)",
             fillStyle: 'rgba(255,255,255,.15)',
             lineWidth: 1,
-            anchors: false
+anchors: false
         }
     });
-
-
-
-
 
     var c2 = Constraint.create({
         pointA: { x: c_x, y: c_y },
         bodyB: b2,
         pointB: { x: b_x, y: b_y },
-        length: c_l,
+        length: c_l ,
 
         stiffness: b_s,
         render: {
             strokeStyle: "rgba(255,255,255,.15)",
             fillStyle: 'rgba(255,255,255,.15)',
             lineWidth: 1,
-            anchors: false
+anchors: false
         }
     });
 
@@ -2271,7 +2016,7 @@ function balloons(first_time) {
             strokeStyle: "rgba(255,255,255,.15)",
             fillStyle: 'rgba(255,255,255,.15)',
             lineWidth: 1,
-            anchors: false
+anchors: false
         }
     });
 
@@ -2285,7 +2030,7 @@ function balloons(first_time) {
             strokeStyle: "rgba(255,255,255,.15)",
             fillStyle: 'rgba(255,255,255,.15)',
             lineWidth: 1,
-            anchors: false
+anchors: false
         }
     });
 
@@ -2293,14 +2038,14 @@ function balloons(first_time) {
         pointA: { x: c_x, y: c_y },
         bodyB: b5,
         pointB: { x: b_x, y: b_y },
-        length: c_l - spacer,
+        length: c_l - spacer ,
 
         stiffness: b_s,
         render: {
             strokeStyle: "rgba(255,255,255,.15)",
             fillStyle: 'rgba(255,255,255,.15)',
             lineWidth: 1,
-            anchors: false
+anchors: false
         }
     });
 
@@ -2315,7 +2060,7 @@ function balloons(first_time) {
             strokeStyle: "rgba(255,255,255,.15)",
             fillStyle: 'rgba(255,255,255,.15)',
             lineWidth: 1,
-            anchors: false
+anchors: false
         }
     });
 
@@ -2329,7 +2074,7 @@ function balloons(first_time) {
             strokeStyle: "rgba(255,255,255,.15)",
             fillStyle: 'rgba(255,255,255,.15)',
             lineWidth: 1,
-            anchors: false
+anchors: false
         }
     });
 
@@ -2344,17 +2089,15 @@ function balloons(first_time) {
             strokeStyle: "rgba(255,255,255,.15)",
             fillStyle: 'rgba(255,255,255,.15)',
             lineWidth: 1,
-            anchors: false
+anchors: false
         }
     });
-
 
     g1 = Composite.create();
     Composite.add(g1, [b1, c1]);
 
     g2 = Composite.create();
     Composite.add(g2, [b2, c2]);
-
 
     g3 = Composite.create();
     Composite.add(g3, [b3, c3]);
@@ -2374,18 +2117,13 @@ function balloons(first_time) {
     g8 = Composite.create();
     Composite.add(g8, [b8, c8]);
 
-
-
     World.add(world, [
 
         g1, g2, g3, g4, g5, g6, g7, g8
 
-
-
     ]);
 
     active_balloons = [g1, g2, g3, g4, g5, g6, g7, g8];
-
 
     /*
 
@@ -2415,15 +2153,12 @@ function balloons(first_time) {
     // keep the mouse in sync with rendering
     render.mouse = mouse;
 
-
     var mouse_counter = 0;
 
     Matter.Events.on(mouseConstraint, "startdrag", function(e) {
 
         mouse_counter = 0;
     });
-
-
 
     Matter.Events.on(mouseConstraint, "mousemove", function(e) {
 
@@ -2433,14 +2168,12 @@ function balloons(first_time) {
 
     Matter.Events.on(mouseConstraint, "enddrag", function(e) {
 
-
         if (mouse_counter < 5) {
             var id = parseInt(e.body.id);
 
             for (i = 0; i < active_balloons.length; i++) {
 
                 if (active_balloons[i].bodies[0].id == id) {
-
 
                     bpop(i);
                     i--;
@@ -2460,29 +2193,20 @@ function balloons(first_time) {
 
     });
 
-
-
     // WIND GENERATOR
 
     Matter.Events.on(runner, "beforeUpdate", function(e) {
 
-
-        var yyy = Matter.Common.random(-0.03, 0);
+        var yyy = Matter.Common.random(-0.03,0);
         var xxx = c_width;
 
         if (left)
-            yyy = Matter.Common.random(0, 0.03);
+            yyy = Matter.Common.random(0,0.03);
 
+       
 
-
-
-
-
-        var from = Matter.Vector.create(xxx, c_height - 15);
+        var from = Matter.Vector.create(xxx, c_height -15);
         var force = Matter.Vector.create(0, yyy);
-
-
-
 
         Body.applyForce(b1, from, force);
         Body.applyForce(b2, from, force);
@@ -2493,13 +2217,9 @@ function balloons(first_time) {
         Body.applyForce(b7, from, force);
         Body.applyForce(b8, from, force);
 
-
-
     })
 
-
-
-
+   
     return {
         engine: engine,
         runner: runner,
@@ -2529,23 +2249,17 @@ function bpop(num) {
 
     }
 
-
-
     Matter.Composite.remove(world, active_balloons[num]);
 
     active_balloons.splice(num, 1);
 
     if (active_balloons.length === 1 && active_balloons[0] == g3) {
-        $("#torso").css('background-image', "url('../images/trump_torso_it.png' )");
+        $("#torso").css('background-image', "url('assets/trump_torso_it.png' )");
         clown = true;
 
         console.log("Pennywise!");
 
-        ga('send', {
-            hitType: 'event',
-            eventCategory: 'Action',
-            eventAction: 'IT Clown'
-        });
+        gtag('event', 'IT Clown');
 
     }
     if (active_balloons.length === 0)
@@ -2557,39 +2271,16 @@ function bpop(num) {
 
 }
 
-
-
-
-
-
 // ON START //
-
-
-
 
 volumeoff = new Image();
 volumeon = new Image();
 volumeoff.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RkVEOUU3MzY2NkFEMTFFN0FEM0NCRkI2NEMyMzk3NTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RkVEOUU3Mzc2NkFEMTFFN0FEM0NCRkI2NEMyMzk3NTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGRUQ5RTczNDY2QUQxMUU3QUQzQ0JGQjY0QzIzOTc1MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGRUQ5RTczNTY2QUQxMUU3QUQzQ0JGQjY0QzIzOTc1MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtTrw2EAAAKrSURBVHja7JvBixJxFMdn1AZ0Lra1WakH6aKiNVPtJkJ6KYRAGCsCC08KmiD4X6R0EvoHREQPWoet1a27EHSQ/gDD8GoImpKk0xuYhWVZctl1nJ15vweDA7/D+P3Mb96872MeLYoihTkMFPIwlUolVf8Az/NUKBTCewfS6TQlPYZqHao/AmazmeQAVXPAJi9ms9lYQRCi8/n8T6PR2BuPx39pmsZB2u/3O3q93jdRjk6n855hmEu5XE7VHLAp8fbBYPBdPBaBQGA3mUzqOwmC+JutVmvfbrf7j6+xLLuldiFmUFj8DVn87ZPWlxC6rQRB/HVZ/B10pfAR8Rw6LwDibSD+E4jn0ZkhEH9NFn8XnRt0u93bsvh76OwwiN5uNpuS+Pvo+gEg+mq73f7o9Xp30DVEQPwVSbzP59tF1xE6Iv6Blj3KmQA4HI7LIH4PxAc0b4ctFoshlUq9DAaDO+DOJCCrinOR47iHLpeLp3QQpnq9/i4ajb7G2hAxgPgM5o6QtOVp7AAoAoAAIAAIAAKAACAACAACgAAgAAgAAoAAIABwAej3+18xAzAJgvCiWCy+8Xg8nLwjVn6x4HQ6b8EPowsA3W73ZyQSeSV1h6lTtsdisdijcrncNBqNrOYBHJ5Mp9NTf61RrVYPlstlrFKpfNA6hDMnwVqt9iWRSDxdLBa/0b4FAMJnrUM492tQ6xDWUgfIEJ5pEcLaCiGAcCBDmKKtBLUIYe2lMEBoawmCIl5ASxAUM0MyhOcXHYKibhAgtGQIs5PW6QswLKC4Hf4fBCin52hsZzwefyLVCYezAsPh8IfVat3KZrOqzgtsbGQGdsL+ZDJ5nMlkstLITKFQeDsajX4xDEOhjnw+j3tsTvdJcFXMZjN1GyLSFlQzwuGwqtenyfQ48vgnwAAcTfJMqvJP7wAAAABJRU5ErkJggg==';
 volumeon.src = 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCIgdmlld0JveD0iMCAwIDYxMS45ODEgNjExLjk4MSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjExLjk4MSA2MTEuOTgxOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTI4NC41NCw2NC4wN2MtOC4yNzgtMy40MjEtMTcuODEyLTEuNTExLTI0LjIzNSw0Ljg5NEwxMjUuODMyLDIwNC4yOTJIMjIuMjUxQzkuOTE2LDIwNC4yOTIsMCwyMTQuMjQ1LDAsMjI2LjU0NHYxNjAuNjAxICAgIGMwLDEyLjI5OSw5LjkxNiwyMi4yNTEsMjIuMjUxLDIyLjI1MUgxMjUuMzRsMTM1LjAzOCwxMzUuMzI5YzQuMjU3LDQuMjc1LDkuOTg5LDYuNTMyLDE1LjczOCw2LjUzMiAgICBjMi44MzgsMCw1Ljc4Ni0wLjU0Niw4LjQ5Ny0xLjY5MmM4LjM1MS0zLjQyMSwxMy43NTUtMTEuNTU0LDEzLjc1NS0yMC41NDFWODQuNjI4QzI5OC4zNDksNzUuNjIzLDI5Mi44OTEsNjcuNDksMjg0LjU0LDY0LjA3eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCTxwYXRoIGQ9Ik01MTYuMTE2LDMwNi4yMTZjMC04My4zNjUtNDkuNTQzLTE1OC40NTMtMTI2LjI1LTE5MS4zNjdjLTExLjI5OS00LjgzOS0yNC40MTYsMC4zODMtMjkuMjIsMTEuNjk5ICAgIGMtNC44NTcsMTEuMjgsMC4zNjQsMjQuMzYyLDExLjY2MiwyOS4yMDJjNjAuNDA1LDI1Ljg3Miw5OS4zMjMsODQuOTMxLDk5LjMyMywxNTAuNDY2YzAsNjUuMjQ1LTM4Ljc3MiwxMjQuMTU4LTk4LjgzMiwxNTAuMDQ5ICAgIGMtMTEuMjYyLDQuODc2LTE2LjQ4MywxNy45NTctMTEuNjI2LDI5LjIyYzMuNjIxLDguNDI0LDExLjgyNiwxMy40NDUsMjAuNTA1LDEzLjQ0NWMyLjg3NSwwLDUuODk2LTAuNTgyLDguNzctMS44MzggICAgQzQ2Ni44MjgsNDY0LjE3OSw1MTYuMTE2LDM4OS4yNTUsNTE2LjExNiwzMDYuMjE2eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCTxwYXRoIGQ9Ik00MTcuNjg2LDMwNi4xOGMwLTQ0LjA0OC0yNi4xODItODMuNjIxLTY2Ljc3My0xMDAuODMyYy0xMS4yNjItNC43MTMtMjQuMzQ0LDAuNDczLTI5LjExLDExLjgwOCAgICBjLTQuODc2LDExLjMxNiwwLjQxOCwyNC4zOCwxMS43MTcsMjkuMTg0YzI0LjA5LDEwLjE4OCwzOS42MjcsMzMuNjk1LDM5LjYyNyw1OS44NDFjMCwyNS44MzYtMTUuMzkyLDQ5LjIzNC0zOS4xNTMsNTkuNTg3ICAgIGMtMTEuMjk5LDQuODc2LTE2LjQ0OCwxNy45NzYtMTEuNTksMjkuMjU2YzMuNjU3LDguMzg4LDExLjgyNiwxMy4zNzMsMjAuNDMyLDEzLjM3M2MyLjk0NywwLDYuMDA0LTAuNTgyLDguODc5LTEuODU2ICAgIEMzOTEuNzc2LDM4OS4xNDYsNDE3LjY4NiwzNDkuNzM4LDQxNy42ODYsMzA2LjE4eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCTxwYXRoIGQ9Ik00MjcuNjc0LDI2LjgwN2MtMTEuMjk5LTQuODk0LTI0LjQ1MywwLjM0Ni0yOS4yMiwxMS42NjNjLTQuODc2LDExLjI5OSwwLjM0NiwyNC4zOCwxMS42NjIsMjkuMjAxICAgIGM5NS41OTMsNDEuMDI4LDE1Ny4zNDUsMTM0LjY1NiwxNTcuMzQ1LDIzOC41ODJjMCwxMDMuNTQzLTYxLjUxNiwxOTYuOTg5LTE1Ni44MTYsMjM4LjA5ICAgIGMtMTEuMjk5LDQuODc2LTE2LjUyMSwxNy45MzktMTEuNjk5LDI5LjIyYzMuNjU3LDguNDI0LDExLjgyNiwxMy40NDUsMjAuNDMyLDEzLjQ0NWMyLjk0OCwwLDYuMDA1LTAuNTgyLDguODc5LTEuODM3ICAgIGMxMTEuNTg2LTQ4LjEwNSwxODMuNzI2LTE1Ny42MTcsMTgzLjcyNi0yNzguOTM3QzYxMiwxODQuNTM0LDUzOS42NzgsNzQuODQsNDI3LjY3NCwyNi44MDd6IiBmaWxsPSIjRkZGRkZGIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==';
 
-
 $(document).ready(function() {
 
-
-
-
-
-    $(window).focus(function() {
-        $("#error").hide();
-        if (volume_on)
-            bg(true);
-    });
-
-    $(window).blur(function() {
-        $("#error").show();
-        bg(false);
-    });
-
+    balloons(false);
 
     if ($("#buttons").is(":visible")) {
         mobile = true;
@@ -2614,131 +2305,119 @@ $(document).ready(function() {
     img5 = new Image();
     img6 = new Image();
     img7 = new Image();
-    img5.src = '../images/trump_torso_normal.png';
-    img6.src = '../images/trump_left_leg.png';
-    img7.src = '../images/trump_right_leg.png';
+    img5.src = 'https://bucket.pushtrumpoffacliffagain.com/trump_torso_normal.png';
+    img6.src = 'https://bucket.pushtrumpoffacliffagain.com/trump_left_leg.png';
+    img7.src = 'https://bucket.pushtrumpoffacliffagain.com/trump_right_leg.png';
 
     update_it();
-
-
-
-
 
     setTimeout(function() {
 
         img1 = new Image();
-        img1.src = '../images/trump_torso_angry_1.png';
+        img1.src = 'https://bucket.pushtrumpoffacliffagain.com/trump_torso_angry_1.png';
 
         bg2 = new Image();
         bg3 = new Image();
         bg4 = new Image();
-        bg2.src = '../images/bg1.jpg';
-        bg3.src = '../images/bg3.jpg';
-        bg4.src = '../images/bg4.jpg';
+        bg2.src = 'https://bucket.pushtrumpoffacliffagain.com/bg1.jpg';
+        bg3.src = 'https://bucket.pushtrumpoffacliffagain.com/bg3.jpg';
+        bg4.src = 'https://bucket.pushtrumpoffacliffagain.com/bg4.jpg';
 
-        grass_step1_audio = new Audio('../sounds/grass_step_1.mp3');
-        grass_step2_audio = new Audio('../sounds/grass_step_2.mp3');
+        grass_step1_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/grass_step_1.mp3');
+        grass_step2_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/grass_step_2.mp3');
         grass_step1_audio.volume = grass_step2_audio.volume = grass_step_volume = .4;
 
         img2 = new Image();
         img3 = new Image();
-        img2.src = '../sounds/trump_torso_angry_2.png';
-        img3.src = '../sounds/trump_torso_angry_3.png';
+        img2.src = 'https://bucket.pushtrumpoffacliffagain.com/trump_torso_angry_2.png';
+        img3.src = 'https://bucket.pushtrumpoffacliffagain.com/trump_torso_angry_3.png';
 
-        effect2_audio = new Audio('../sounds/se3_echo.mp3');
+        effect2_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/se3_echo.mp3');
         effect2_audio.volume = effect2_volume = 1;
 
-        balloon1_audio = new Audio('../sounds/pop.mp3');
-        balloon2_audio = balloon2_audio = new Audio('../sounds/pop2.mp3');
-        balloon3_audio = balloon3_audio = new Audio('../sounds/bounce.mp3');
-        balloon4_audio = balloon4_audio = new Audio('../sounds/bounce2.mp3');
+        balloon1_audio = new Audio('assets/pop.mp3');
+        balloon2_audio = balloon2_audio = new Audio('assets/pop2.mp3');
+        balloon3_audio = balloon3_audio = new Audio('assets/bounce.mp3');
+        balloon4_audio = balloon4_audio = new Audio('assets/bounce2.mp3');
         balloon3_audio.volume = balloon3_volume = 1;
         balloon4_audio.volume = balloon4_volume = 1;
         balloon1_audio.volume = balloon1_volume = balloon2_audio.volume = balloon2_volume = 1;
 
-        effect3_audio = new Audio('../sounds/se2_echo.mp3');
+        effect3_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/se2_echo.mp3');
         effect3_audio.volume = effect3_volume = .8;
-        effect4_audio = new Audio('../sounds/se1_echo.mp3');
+        effect4_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/se1_echo.mp3');
         effect4_audio.volume = effect4_volume = .8;
 
-        effect5_audio = new Audio('../sounds/rich.mp3');
+        effect5_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/rich.mp3');
         effect5_audio.volume = effect5_volume = .4;
 
-        roar = new Audio('../sounds/roar.mp3');
+        roar = new Audio('https://bucket.pushtrumpoffacliffagain.com/roar.mp3');
         roar.volume = roar_volume = .4;
 
         if (!preloaded) {
             load_audio();
         }
 
-
         setTimeout(function() {
 
-            hatdance_audio = new Audio('../sounds/hatdance.mp3');
+            hatdance_audio = new Audio('https://bucket.pushtrumpoffacliffagain.com/hatdance.mp3');
             hatdance_audio.volume = hat_dance_volume = .9;
 
             img4 = new Image();
-            img4.src = '../images/trump_torso_sombrero.png';
+            img4.src = 'https://bucket.pushtrumpoffacliffagain.com/trump_torso_sombrero.png';
 
             img9 = new Image();
-            img9.src = '../images/trump_torso_b.png';
+            img9.src = 'assets/trump_torso_b.png';
 
             img10 = new Image();
-            img10.src = '../images/trump_torso_it.png';
+            img10.src = 'assets/trump_torso_it.png';
 
             img11 = new Image();
-            img11.src = '../images/trump_torso_bugly.png';
+            img11.src = 'assets/trump_torso_bugly.png';
 
             img12 = new Image();
-            img12.src = '../images/trump_torso_b.png';
+            img12.src = 'assets/trump_torso_b.png';
 
             img13 = new Image();
-            img13.src = '../images/blue.png';
+            img13.src = 'assets/blue.png';
 
             img14 = new Image();
-            img14.src = '../images/white.png';
+            img14.src = 'assets/white.png';
 
             img15 = new Image();
-            img15.src = '../images/green.png';
+            img15.src = 'assets/green.png';
 
             img16 = new Image();
-            img16.src = '../images/yellow.png';
+            img16.src = 'assets/yellow.png';
 
             img17 = new Image();
-            img17.src = '../images/pink.png';
+            img17.src = 'assets/pink.png';
 
             img18 = new Image();
-            img18.src = '../images/purple.png';
+            img18.src = 'assets/purple.png';
 
             img19 = new Image();
-            img19.src = '../images/red.png';
-
-
+            img19.src = 'assets/red.png';
 
             img8bit = new Image();
-            img8bit.src = "../trump_torso_8bit.png";
+            img8bit.src = "https://bucket.pushtrumpoffacliffagain.com/trump_torso_8bit.png";
 
-            konami_pipe = new Audio('../sounds/pipe.mp3');
-            konami_jump = new Audio('../sounds/jump.mp3');
-            konami_start = new Audio('../sounds/powerup.mp3');
+            konami_pipe = new Audio('https://bucket.pushtrumpoffacliffagain.com/pipe.mp3');
+            konami_jump = new Audio('https://bucket.pushtrumpoffacliffagain.com/jump.mp3');
+            konami_start = new Audio('https://bucket.pushtrumpoffacliffagain.com/powerup.mp3');
             konami_pipe.volume = konami_jump.volume = konami_start.volume = konami_volume = .8;
 
-            metal_sound = new Audio('../sounds/clink.mp3');
+            metal_sound = new Audio('https://bucket.pushtrumpoffacliffagain.com/clink.mp3');
             metal_sound.volume = metal_volume = .8;
 
-            chief = new Audio("../sounds/chief.mp3");
+            chief = new Audio("https://bucket.pushtrumpoffacliffagain.com/chief.mp3");
             chief.volume = chief_volume = .7;
-
 
             setTimeout(function() {
 
                 audio_loaded = true;
 
             });
-
-
-
-
 
         }, 0);
 
@@ -2748,8 +2427,6 @@ $(document).ready(function() {
 
         take_step();
 
-
     }, 2000);
-
 
 }); // on ready

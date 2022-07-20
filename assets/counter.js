@@ -1,0 +1,1 @@
+var rate = 0.76846196557468; var hitcount = 204379; var last_time =  1500062534;
