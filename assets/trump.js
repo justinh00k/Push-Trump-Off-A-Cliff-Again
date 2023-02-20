@@ -1,7 +1,7 @@
 //YouTube Video
 
 var tag = document.createElement('script');
-tag.src = 'https://www.youtube.com/player_api';
+tag.src = './assets/https://www.youtube.com/player_api';
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var tv,
@@ -2460,20 +2460,20 @@ $(document).ready(function () {
 	img5 = new Image();
 	img6 = new Image();
 	img7 = new Image();
-	img5.src = 'trump_torso_normal.png';
-	img6.src = 'trump_left_leg.png';
-	img7.src = 'trump_right_leg.png';
+	img5.src = './assets/trump_torso_normal.png';
+	img6.src = './assets/trump_left_leg.png';
+	img7.src = './assets/trump_right_leg.png';
 
 	setTimeout(function () {
 		img1 = new Image();
-		img1.src = 'trump_torso_angry_1.png';
+		img1.src = './assets/trump_torso_angry_1.png';
 
 		bg2 = new Image();
 		bg3 = new Image();
 		bg4 = new Image();
-		bg2.src = 'bg1.jpg';
-		bg3.src = 'bg3.jpg';
-		bg4.src = 'bg4.jpg';
+		bg2.src = './assets/bg1.jpg';
+		bg3.src = './assets/bg3.jpg';
+		bg4.src = './assets/bg4.jpg';
 
 		grass_step1_audio = new Audio('./assets/grass_step_1.mp3');
 		grass_step2_audio = new Audio('./assets/grass_step_2.mp3');
@@ -2484,8 +2484,8 @@ $(document).ready(function () {
 
 		img2 = new Image();
 		img3 = new Image();
-		img2.src = 'trump_torso_angry_2.png';
-		img3.src = 'trump_torso_angry_3.png';
+		img2.src = './assets/trump_torso_angry_2.png';
+		img3.src = './assets/trump_torso_angry_3.png';
 
 		effect2_audio = new Audio('./assets/se3_echo.mp3');
 		effect2_audio.volume = effect2_volume = 1;
@@ -2522,43 +2522,43 @@ $(document).ready(function () {
 			hatdance_audio.volume = hat_dance_volume = 0.9;
 
 			img4 = new Image();
-			img4.src = 'trump_torso_sombrero.png';
+			img4.src = './assets/trump_torso_sombrero.png';
 
 			img9 = new Image();
-			img9.src = 'assets/trump_torso_b.png';
+			img9.src = './assets/trump_torso_b.png';
 
 			img10 = new Image();
-			img10.src = 'assets/trump_torso_it.png';
+			img10.src = './assets/trump_torso_it.png';
 
 			img11 = new Image();
-			img11.src = 'assets/trump_torso_bugly.png';
+			img11.src = './assets/trump_torso_bugly.png';
 
 			img12 = new Image();
-			img12.src = 'assets/trump_torso_b.png';
+			img12.src = './assets/trump_torso_b.png';
 
 			img13 = new Image();
-			img13.src = 'assets/blue.png';
+			img13.src = './assets/blue.png';
 
 			img14 = new Image();
-			img14.src = 'assets/white.png';
+			img14.src = './assets/white.png';
 
 			img15 = new Image();
-			img15.src = 'assets/green.png';
+			img15.src = './assets/green.png';
 
 			img16 = new Image();
-			img16.src = 'assets/yellow.png';
+			img16.src = './assets/yellow.png';
 
 			img17 = new Image();
-			img17.src = 'assets/pink.png';
+			img17.src = './assets/pink.png';
 
 			img18 = new Image();
-			img18.src = 'assets/purple.png';
+			img18.src = './assets/purple.png';
 
 			img19 = new Image();
-			img19.src = 'assets/red.png';
+			img19.src = './assets/red.png';
 
 			img8bit = new Image();
-			img8bit.src = 'trump_torso_8bit.png';
+			img8bit.src = './assets/trump_torso_8bit.png';
 
 			konami_pipe = new Audio('./assets/pipe.mp3');
 			konami_jump = new Audio('./assets/jump.mp3');
