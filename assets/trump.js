@@ -1,7 +1,7 @@
 //YouTube Video
 
 var tag = document.createElement('script');
-tag.src = './assets/https://www.youtube.com/player_api';
+tag.src = 'https://www.youtube.com/player_api';
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var tv,
